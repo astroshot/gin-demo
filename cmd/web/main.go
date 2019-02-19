@@ -9,7 +9,7 @@ import (
 func main() {
 	port := flag.String("port", "8000", "HTTP port")
 	flag.Parse()
-	fmt.Println("Listening to localhost:%s", *port)
+	fmt.Println("Listening to localhost:", *port)
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
