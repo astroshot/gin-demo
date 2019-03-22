@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// Monitor returns ok for echo server health
 func Monitor(c *gin.Context) {
 	c.String(http.StatusOK, "OK")
 }

@@ -1,11 +1,19 @@
 package controller
 
 import (
+	"astroshot/gin-demo/pkg/config"
+
+	"fmt"
+
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
+// Hello handles URI /hello
 func Hello(c *gin.Context) {
 	_ = c.Query("offset")
-	c.String(http.StatusOK, "Hello!")
+
+	conf := config.GetConfig(config.GetEnv())
+	fmt.Println(conf.Server.Path)
+	c.String(http.StatusOK, *conf.Server.Path)
 }

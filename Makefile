@@ -1,15 +1,12 @@
-.PHONY: build
+.PHONY: build clean format start
 build:
-	go build -v -o bin/gintama_api cmd/web/server.go
+	go build -v -o bin/gin_api cmd/web/server.go
 
-.PHONY: clean
 clean:
 	-rm bin/*
 
-.PHONY: format
 format:
 	gofmt -w pkg cmd
 
-.PHONY: start
 start:
-	bin/gintama_api
+	bin/gin_api
