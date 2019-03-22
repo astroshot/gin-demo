@@ -1,6 +1,6 @@
 .PHONY: build
 build:
-	go build -v -o bin/gintama_api cmd/web/main.go
+	go build -v -o bin/gintama_api cmd/web/server.go
 
 .PHONY: clean
 clean:
