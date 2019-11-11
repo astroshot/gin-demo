@@ -1,13 +1,14 @@
-# gintama
+# gin-demo
 
 A go web template using gin.
 
-# Dependance
+## Dependance
 
 - Golang
 - gin
+- gorm
 
-# Deploy
+## Deploy
 
 1. Run `make build` to compile product;
 2. Run `make start` to start service;
