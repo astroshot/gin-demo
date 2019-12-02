@@ -1,6 +1,7 @@
 package web
 
 import (
+	// "astroshot/gin-demo/pkg/config"
 	"astroshot/gin-demo/pkg/util"
 	"astroshot/gin-demo/pkg/web/controller"
 
@@ -16,4 +17,5 @@ func init() {
 	v := Router.Group(util.ContextPath)
 	v.GET("/hello", controller.Hello)
 	v.GET("/monitor", controller.Monitor)
+	v.POST("/users", controller.AddUser)
 }

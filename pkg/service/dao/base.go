@@ -1,4 +1,4 @@
-package impl
+package dao
 
 import (
 	"sync"
@@ -18,6 +18,10 @@ type BaseDAOImpl struct {
 	db *gorm.DB
 }
 
+func (impl *BaseDAOImpl) SetDB(db *gorm.DB) {
+	impl.db = db
+}
+
 func GetDB() *gorm.DB {
 	return db
 }
@@ -26,15 +30,17 @@ func initDB() {
 	var err error
 
 	conf := config.GetConfig(config.GetEnv())
-	db, err = gorm.Open(*conf.Db.Name, *conf.Db.Url)
-
+	db, err = gorm.Open(*conf.Db.Name, *conf.Db.URL)
 	if err != nil {
 		panic(err)
 	}
+
+	// Disable table name's pluralization
+	db.SingularTable(true)
 	db.DB().SetMaxIdleConns(10)
 	db.DB().SetMaxOpenConns(10)
 }
 
-func init() {
-	once.Do(initDB())
+func Init() {
+	once.Do(initDB)
 }

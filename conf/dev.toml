@@ -1,6 +1,7 @@
 [database]
 name = "mysql"
-url = "mysql://root@localhost:3306/test?charset=utf8&parseTime=true"
+url = "root:@(localhost:3306)/test?charset=utf8&parseTime=true"
 
 [server]
-context-path = "gintama"
+context-path = "gin-demo"
+port = 8004
