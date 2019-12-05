@@ -1,7 +1,11 @@
 [database]
 name = "mysql"
-url = "mysql://root@localhost:3306/test?charset=utf8&parseTime=true"
+url = "root:@(localhost:3306)/test?charset=utf8&parseTime=true"
+singular-table = true
+debug-mode = true
+max-idle-conns = 10
+max-open-conns = 10
 
 [server]
 context-path = "gin-demo"
-port = 8004
+port = "8004"
