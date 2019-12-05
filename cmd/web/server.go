@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"astroshot/gin-demo/pkg/config"
+	"astroshot/gin-demo/pkg/service"
 	"astroshot/gin-demo/pkg/web"
 )
 
@@ -19,5 +20,6 @@ func main() {
 	fmt.Println("Using env:", *env)
 
 	config.GetConfig(env)
+	service.InitService()
 	web.Router.Run(":" + *port)
 }

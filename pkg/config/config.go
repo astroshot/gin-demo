@@ -8,12 +8,14 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
+// Database defines database config
 type Database struct {
 	Name *string `toml:"name"`
-	Url  *string `toml:"url"`
+	URL  *string `toml:"url"`
 }
 
 type Server struct {
+	// TODO: pass context from config files
 	Path *string `toml:"context-path"`
 }
 
