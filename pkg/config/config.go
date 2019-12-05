@@ -10,13 +10,18 @@ import (
 
 // Database defines database config
 type Database struct {
-	Name *string `toml:"name"`
-	URL  *string `toml:"url"`
+	Name          *string `toml:"name"`
+	URL           *string `toml:"url"`
+	SingularTable *bool   `toml:"singular-table"`
+	DebugMode     *bool   `toml:"debug-mode"`
+	MaxIdleConns  *int    `toml:"max-idle-conns"`
+	MaxOpenConns  *int    `toml:"max-open-conns"`
 }
 
 type Server struct {
 	// TODO: pass context from config files
 	Path *string `toml:"context-path"`
+	Port *string `toml:"port"`
 }
 
 type Config struct {

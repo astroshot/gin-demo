@@ -36,11 +36,8 @@ func initDB() {
 	}
 
 	// Disable table name's pluralization
-	db.SingularTable(true)
-	db.DB().SetMaxIdleConns(10)
-	db.DB().SetMaxOpenConns(10)
-}
-
-func Init() {
-	once.Do(initDB)
+	db.SingularTable(*conf.Db.SingularTable)
+	db.LogMode(*conf.Db.DebugMode)
+	db.DB().SetMaxIdleConns(*conf.Db.MaxIdleConns)
+	db.DB().SetMaxOpenConns(*conf.Db.MaxOpenConns)
 }

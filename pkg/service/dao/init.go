@@ -5,7 +5,7 @@ var (
 )
 
 func InitDAO() {
-	Init()
+	once.Do(initDB)
 	UserDao = &UserDAOImpl{}
 	db := GetDB()
 	UserDao.SetDB(db)

@@ -13,6 +13,8 @@ var Router *gin.Engine
 
 func init() {
 	Router = gin.Default()
+	Router.Use(GetLogger())
+	Router.Use(gin.Recovery())
 
 	v := Router.Group(util.ContextPath)
 	v.GET("/hello", controller.Hello)

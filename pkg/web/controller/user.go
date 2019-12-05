@@ -36,6 +36,7 @@ func AddUser(c *gin.Context) {
 		Status:      &status,
 	}
 	service.UserServiceInstance.Add(user)
+	// Logger.Infof("Log: %s", user.Name)
 	res = view.Success(0, util.SuccessInfo, true)
 	c.JSON(http.StatusOK, res)
 }
