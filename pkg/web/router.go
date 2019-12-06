@@ -18,12 +18,14 @@ func init() {
 	Router.Use(middleware.Recover())
 }
 
+// MapURI maps URI to funcs
 func MapURI(conf *config.Config) {
 	v := Router.Group(*conf.Server.Path)
 	v.GET("/hello", controller.Hello)
 	v.GET("/monitor", controller.Monitor)
 
 	v.GET("/users/:token", controller.GetUserByID)
+	v.PUT("/users/:token", controller.UpdateUser)
 	v.GET("/users", controller.ListUsers)
 	v.POST("/users", controller.AddUser)
 }

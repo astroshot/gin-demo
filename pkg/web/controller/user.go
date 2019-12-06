@@ -57,6 +57,40 @@ func AddUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
+func UpdateUser(c *gin.Context) {
+	var userVO model.UserVO
+	var res *view.JSONResponse
+
+	userID := c.Param("token")
+	id, err := strconv.ParseInt(userID, 10, 64)
+	if err != nil {
+		res = view.Fail(-1, util.FailInfo, nil)
+		c.JSON(http.StatusBadRequest, res)
+		return
+	}
+
+	if err := c.ShouldBindJSON(&userVO); err != nil {
+		res = view.Fail(-1, util.FailInfo, err.Error())
+		c.JSON(http.StatusBadRequest, res)
+		return
+	}
+
+	user := service.UserServiceInstance.GetByID(&id)
+	if user == nil {
+		res = view.Fail(-1, "user not found", nil)
+		c.JSON(http.StatusNotFound, res)
+		return
+	}
+	user.Name = userVO.Name
+	user.Email = userVO.Email
+	user.Description = userVO.Description
+	user.Phone = userVO.Phone
+
+	service.UserServiceInstance.Update(user)
+	res = view.Success(0, util.SuccessInfo, true)
+	c.JSON(http.StatusOK, res)
+}
+
 // GetUserByID returns User by id
 func GetUserByID(c *gin.Context) {
 	var res *view.JSONResponse

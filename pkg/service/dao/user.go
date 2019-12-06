@@ -11,6 +11,7 @@ import (
 type UserDAO interface {
 	GetByID(id *int64) *model.User
 	Add(user *model.User) bool
+	Update(user *model.User) bool
 	GetByCondition(condition *bo.UserQueryBO) *bo.Pager
 }
 
@@ -48,7 +49,9 @@ func (dao *UserDAOImpl) Update(user *model.User) bool {
 		return false
 	}
 
-	db.Update(&user)
+	if err := db.Model(&user).Updates(*user).Error; err != nil {
+		panic(err)
+	}
 	return true
 }
 

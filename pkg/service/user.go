@@ -8,6 +8,7 @@ import (
 
 type UserService interface {
 	Add(user *model.User) bool
+	Update(user *model.User) bool
 	GetByID(id *int64) *model.User
 	GetByCondition(condition *bo.UserQueryBO) *bo.Pager
 }
@@ -26,4 +27,8 @@ func (service *UserServiceImpl) GetByID(id *int64) *model.User {
 
 func (service *UserServiceImpl) GetByCondition(condition *bo.UserQueryBO) *bo.Pager {
 	return service.UserDAO.GetByCondition(condition)
+}
+
+func (service *UserServiceImpl) Update(user *model.User) bool {
+	return service.UserDAO.Update(user)
 }

@@ -11,14 +11,6 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-var (
-	Logger gin.HandlerFunc
-)
-
-func init() {
-	Logger = GetLogger()
-}
-
 func GetLogger() gin.HandlerFunc {
 	logClient := logrus.New()
 	// 禁止logrus的输出
