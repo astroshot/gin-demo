@@ -18,5 +18,6 @@ func main() {
 
 	conf := config.GetConfig(env)
 	service.InitService()
+	web.MapURI(conf)
 	web.Router.Run(":" + *conf.Server.Port)
 }

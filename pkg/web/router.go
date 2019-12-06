@@ -1,8 +1,7 @@
 package web
 
 import (
-	// "astroshot/gin-demo/pkg/config"
-	"astroshot/gin-demo/pkg/util"
+	"astroshot/gin-demo/pkg/config"
 	"astroshot/gin-demo/pkg/web/controller"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +15,10 @@ func init() {
 	Router.Use(GetLogger())
 	Router.Use(gin.Recovery())
 
-	v := Router.Group(util.ContextPath)
+}
+
+func MapURI(conf *config.Config) {
+	v := Router.Group(*conf.Server.Path)
 	v.GET("/hello", controller.Hello)
 	v.GET("/monitor", controller.Monitor)
 
