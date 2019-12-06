@@ -36,7 +36,9 @@ func (dao *UserDAOImpl) Add(user *model.User) bool {
 		return false
 	}
 
-	db.Create(&user)
+	if err := db.Create(&user).Error; err != nil {
+		panic(err)
+	}
 	return true
 }
 
