@@ -3,6 +3,7 @@ package controller
 import (
 	view "astroshot/gin-demo/pkg/common/model"
 	"astroshot/gin-demo/pkg/service"
+	"astroshot/gin-demo/pkg/service/bo"
 	dao_model "astroshot/gin-demo/pkg/service/dao/model"
 	"astroshot/gin-demo/pkg/util"
 	"astroshot/gin-demo/pkg/web/model"
@@ -15,7 +16,21 @@ import (
 
 // ListUsers returns list of users
 func ListUsers(c *gin.Context) {
+	name := util.GetQueryStr(c, "name")
+	phoneNo := util.GetQueryStr(c, "phoneNo")
+	pageNo := util.GetQueryInt(c, "pageNo")
+	pageSize := util.GetQueryInt(c, "pageSize")
 
+	query := &bo.UserQueryBO{
+		Name:     name,
+		PhoneNo:  phoneNo,
+		PageNo:   pageNo,
+		PageSize: pageSize,
+	}
+
+	pager := service.UserServiceInstance.GetByCondition(query)
+	res := view.Success(0, util.SuccessInfo, pager)
+	c.JSON(http.StatusOK, res)
 }
 
 // AddUser creates model User in db

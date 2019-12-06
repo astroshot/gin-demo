@@ -1,6 +1,7 @@
 package service
 
 import (
+	"astroshot/gin-demo/pkg/service/bo"
 	"astroshot/gin-demo/pkg/service/dao"
 	"astroshot/gin-demo/pkg/service/dao/model"
 )
@@ -8,6 +9,7 @@ import (
 type UserService interface {
 	Add(user *model.User) bool
 	GetByID(id *int64) *model.User
+	GetByCondition(condition *bo.UserQueryBO) *bo.Pager
 }
 
 type UserServiceImpl struct {
@@ -20,4 +22,8 @@ func (service *UserServiceImpl) Add(user *model.User) bool {
 
 func (service *UserServiceImpl) GetByID(id *int64) *model.User {
 	return service.UserDAO.GetByID(id)
+}
+
+func (service *UserServiceImpl) GetByCondition(condition *bo.UserQueryBO) *bo.Pager {
+	return service.UserDAO.GetByCondition(condition)
 }

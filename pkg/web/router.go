@@ -21,5 +21,6 @@ func init() {
 	v.GET("/monitor", controller.Monitor)
 
 	v.GET("/users/:token", controller.GetUserByID)
+	v.GET("/users", controller.ListUsers)
 	v.POST("/users", controller.AddUser)
 }
