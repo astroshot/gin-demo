@@ -7,16 +7,17 @@ import (
 
 type UserService interface {
 	Add(user *model.User) bool
+	GetByID(id *int64) *model.User
 }
 
 type UserServiceImpl struct {
-	UserDAO *dao.UserDAOImpl
+	UserDAO dao.UserDAO
 }
 
 func (service *UserServiceImpl) Add(user *model.User) bool {
 	return service.UserDAO.Add(user)
 }
 
-func (service *UserServiceImpl) GetById(id *int) *model.User {
-	return service.GetById(id)
+func (service *UserServiceImpl) GetByID(id *int64) *model.User {
+	return service.UserDAO.GetByID(id)
 }

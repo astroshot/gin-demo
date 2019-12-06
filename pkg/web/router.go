@@ -19,5 +19,7 @@ func init() {
 	v := Router.Group(util.ContextPath)
 	v.GET("/hello", controller.Hello)
 	v.GET("/monitor", controller.Monitor)
+
+	v.GET("/users/:token", controller.GetUserByID)
 	v.POST("/users", controller.AddUser)
 }

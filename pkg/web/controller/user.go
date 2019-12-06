@@ -8,6 +8,7 @@ import (
 	"astroshot/gin-demo/pkg/web/model"
 
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -38,5 +39,27 @@ func AddUser(c *gin.Context) {
 	service.UserServiceInstance.Add(user)
 	// Logger.Infof("Log: %s", user.Name)
 	res = view.Success(0, util.SuccessInfo, true)
+	c.JSON(http.StatusOK, res)
+}
+
+// GetUserByID returns User by id
+func GetUserByID(c *gin.Context) {
+	var res *view.JSONResponse
+	userID := c.Param("token")
+	id, err := strconv.ParseInt(userID, 10, 64)
+	if err != nil {
+		res = view.Fail(-1, util.FailInfo, nil)
+		c.JSON(http.StatusBadRequest, res)
+		return
+	}
+
+	user := service.UserServiceInstance.GetByID(&id)
+	if user == nil {
+		res = view.Fail(-1, "user not found", nil)
+		c.JSON(http.StatusNotFound, res)
+		return
+	}
+
+	res = view.Success(0, util.SuccessInfo, user)
 	c.JSON(http.StatusOK, res)
 }

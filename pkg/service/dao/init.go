@@ -1,12 +1,11 @@
 package dao
 
 var (
-	UserDao *UserDAOImpl
+	UserDao UserDAO
 )
 
+// InitDAO init package dao
 func InitDAO() {
 	once.Do(initDB)
 	UserDao = &UserDAOImpl{}
-	db := GetDB()
-	UserDao.SetDB(db)
 }

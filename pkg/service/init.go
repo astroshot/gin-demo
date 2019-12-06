@@ -8,6 +8,7 @@ var (
 	UserServiceInstance UserService
 )
 
+// InitService init package service
 func InitService() {
 	dao.InitDAO()
 	UserServiceInstance = &UserServiceImpl{

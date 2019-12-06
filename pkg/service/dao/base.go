@@ -14,14 +14,6 @@ var (
 	once sync.Once
 )
 
-type BaseDAOImpl struct {
-	db *gorm.DB
-}
-
-func (impl *BaseDAOImpl) SetDB(db *gorm.DB) {
-	impl.db = db
-}
-
 func GetDB() *gorm.DB {
 	return db
 }
