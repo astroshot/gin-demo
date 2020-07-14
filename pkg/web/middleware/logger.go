@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"time"
@@ -11,6 +12,17 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// LogInfo defines log structure
+type LogInfo struct {
+	ClientIP   *string `json:"clientIP"`
+	HTTPMethod *string `json:"httpMethod"`
+	URI        *string `json:"uri"`
+	StatusCode *int    `json:"statusCode"`
+	StartTime  *int64  `json:"startTime"`
+	Cost       *int64  `json:"cost"`
+}
+
+// GetLogger returns logger
 func GetLogger() gin.HandlerFunc {
 	logClient := logrus.New()
 	// 禁止logrus的输出
@@ -39,21 +51,37 @@ func GetLogger() gin.HandlerFunc {
 	logClient.AddHook(lfHook)
 
 	return func(c *gin.Context) {
-		start := time.Now()
+		start := time.Now().UnixNano() / 1e6
 		c.Next()
-		end := time.Now()
-		latency := end.Sub(start)
+		end := time.Now().UnixNano() / 1e6
+		latency := end - start
 
 		path := c.Request.URL.Path
 		clientIP := c.ClientIP()
 		method := c.Request.Method
 		statusCode := c.Writer.Status()
-		logClient.Infof("| %3d | %13v | %15s | %s %s |",
-			statusCode,
-			latency,
-			clientIP,
-			method,
-			path,
-		)
+		logInfo := &LogInfo{}
+		logInfo.ClientIP = &clientIP
+		logInfo.StartTime = &start
+		logInfo.Cost = &latency
+		logInfo.StatusCode = &statusCode
+		logInfo.URI = &path
+		logInfo.HTTPMethod = &method
+		logStr, err := json.Marshal(logInfo)
+		if err != nil {
+			panic(err)
+		}
+		// logClient.Infof("%v", logStr)
+		logJsonStr := string(logStr)
+		fmt.Println(logJsonStr)
+		logClient.Infof("AccessLog: %s", logJsonStr)
+		// logClient.Infof("| %3d | %13v | %15s | %s %s | %s",
+		// statusCode,
+		// latency,
+		// clientIP,
+		// method,
+		// path,
+		// logJsonStr,
+		// )
 	}
 }
