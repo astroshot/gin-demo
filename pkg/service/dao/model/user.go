@@ -1,10 +1,10 @@
 package model
 
 type User struct {
-	Name        *string
-	Phone       *string
-	Email       *string
-	Description *string
-	Status      *int
+	Name        *string `json:"name"`
+	Phone       *string `json:"phone"`
+	Email       *string `json:"email"`
+	Description *string `json:"description"`
+	Status      *int    `json:"status"`
 	BaseModel
 }

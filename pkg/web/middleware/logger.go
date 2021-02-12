@@ -1,59 +1,67 @@
 package middleware
 
 import (
+	"bytes"
 	"fmt"
-	"os"
+	"io/ioutil"
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/lestrrat/go-file-rotatelogs"
-	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
+
+	"gin-demo/pkg/config"
 )
 
+type bodyLogWriter struct {
+	gin.ResponseWriter
+	body *bytes.Buffer
+}
+
+func (w bodyLogWriter) Write(b []byte) (int, error) {
+	w.body.Write(b)
+	return w.ResponseWriter.Write(b)
+}
+
+// GetLogger returns logger based on logrus
 func GetLogger() gin.HandlerFunc {
-	logClient := logrus.New()
-	// 禁止logrus的输出
-	src, err := os.OpenFile(os.DevNull, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
-	if err != nil {
-		fmt.Println("err", err)
-	}
-
-	logClient.Out = src
-	logClient.SetLevel(logrus.DebugLevel)
-
-	logPath := "logs"
-	logWriter, err := rotatelogs.New(
-		logPath+".%Y-%m-%d-%H-%M.log",
-		rotatelogs.WithLinkName(logPath),
-		rotatelogs.WithMaxAge(7*24*time.Hour),
-		rotatelogs.WithRotationTime(24*time.Hour),
-	)
-
-	writeMap := lfshook.WriterMap{
-		logrus.InfoLevel:  logWriter,
-		logrus.FatalLevel: logWriter,
-	}
-
-	lfHook := lfshook.NewHook(writeMap, &logrus.JSONFormatter{})
-	logClient.AddHook(lfHook)
+	logger := config.GetLogger()
 
 	return func(c *gin.Context) {
+		// Process requestBody
+		data, err := c.GetRawData()
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		dataStr := fmt.Sprintf("%v", string(data))
+		// fmt.Printf("data: %v\n", string(data))
+		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(data)) // 关键点
+
+		// Process responseBody
+		blw := &bodyLogWriter{body: bytes.NewBufferString(""), ResponseWriter: c.Writer}
+		c.Writer = blw
+
 		start := time.Now()
 		c.Next()
 		end := time.Now()
 		latency := end.Sub(start)
+		latencyStr := fmt.Sprintf("%v", latency)
 
-		path := c.Request.URL.Path
+		// path := c.Request.URL.Path
 		clientIP := c.ClientIP()
 		method := c.Request.Method
 		statusCode := c.Writer.Status()
-		logClient.Infof("| %3d | %13v | %15s | %s %s |",
-			statusCode,
-			latency,
-			clientIP,
-			method,
-			path,
-		)
+
+		logger.WithFields(logrus.Fields{
+			"proto":        c.Request.Proto,
+			"host":         c.Request.Host,
+			"status":       statusCode,
+			"method":       method,
+			"requestBody":  dataStr,
+			"responseBody": blw.body.String(),
+			"URI":          c.Request.URL.Path,
+			"header":       c.Request.Header,
+			"clientIP":     clientIP,
+			"cost":         latencyStr,
+		}).Infof("")
 	}
 }
