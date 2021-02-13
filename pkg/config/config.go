@@ -20,8 +20,9 @@ type Database struct {
 
 type Server struct {
 	// TODO: pass context from config files
-	Path *string `toml:"context-path"`
-	Port *string `toml:"port"`
+	Path    *string `toml:"context-path"`
+	Port    *string `toml:"port"`
+	LogPath *string `toml:"log-path"`
 }
 
 type Config struct {

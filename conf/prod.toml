@@ -9,3 +9,4 @@ max-open-conns = 10
 [server]
 context-path = "gin-demo"
 port = "8004"
+log-path = "logs"
