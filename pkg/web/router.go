@@ -36,6 +36,7 @@ func MapURI(conf *config.Config) {
 
 func ConfigLog(conf *config.Config) {
 	// logfileName := fmt.Sprintf("%s/gin-demo.log", *conf.Server.LogPath)
-	logfile, _ := os.Create("gin-demo.log")
+	logfile, _ := os.OpenFile("gin-demo.log", os.O_APPEND|os.O_WRONLY, os.ModeAppend)
+	// logfile, _ := os.Create("gin-demo.log")
 	gin.DefaultWriter = io.MultiWriter(logfile, os.Stdout)
 }

@@ -44,7 +44,7 @@ func GetLogger() gin.HandlerFunc {
 		c.Next()
 		end := time.Now()
 		latency := end.Sub(start)
-		latencyStr := fmt.Sprintf("%v", latency)
+		latencyStr := fmt.Sprintf("%fms", float64(latency)/float64(time.Millisecond))
 
 		// path := c.Request.URL.Path
 		clientIP := c.ClientIP()
@@ -52,16 +52,16 @@ func GetLogger() gin.HandlerFunc {
 		statusCode := c.Writer.Status()
 
 		logger.WithFields(logrus.Fields{
-			"proto":        c.Request.Proto,
-			"host":         c.Request.Host,
-			"status":       statusCode,
-			"method":       method,
-			"requestBody":  dataStr,
-			"responseBody": blw.body.String(),
-			"URI":          c.Request.URL.Path,
-			"header":       c.Request.Header,
-			"clientIP":     clientIP,
-			"cost":         latencyStr,
+			"proto":         c.Request.Proto,
+			"host":          c.Request.Host,
+			"status":        statusCode,
+			"method":        method,
+			"requestHeader": c.Request.Header,
+			"requestBody":   dataStr,
+			"URI":           c.Request.URL.Path,
+			"responseBody":  blw.body.String(),
+			"clientIP":      clientIP,
+			"cost":          latencyStr,
 		}).Infof("")
 	}
 }
