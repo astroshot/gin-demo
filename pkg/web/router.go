@@ -1,9 +1,9 @@
 package web
 
 import (
-	"astroshot/gin-demo/pkg/config"
-	"astroshot/gin-demo/pkg/web/controller"
-	"astroshot/gin-demo/pkg/web/middleware"
+	"gin-demo/pkg/config"
+	"gin-demo/pkg/web/controller"
+	"gin-demo/pkg/web/middleware"
 
 	"github.com/gin-gonic/gin"
 )

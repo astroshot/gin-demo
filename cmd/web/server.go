@@ -4,9 +4,9 @@ import (
 	"flag"
 	"fmt"
 
-	"astroshot/gin-demo/pkg/config"
-	"astroshot/gin-demo/pkg/service"
-	"astroshot/gin-demo/pkg/web"
+	"gin-demo/pkg/config"
+	"gin-demo/pkg/service"
+	"gin-demo/pkg/web"
 )
 
 func main() {

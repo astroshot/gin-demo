@@ -1,12 +1,12 @@
 package controller
 
 import (
-	view "astroshot/gin-demo/pkg/common/model"
-	"astroshot/gin-demo/pkg/service"
-	"astroshot/gin-demo/pkg/service/bo"
-	dao_model "astroshot/gin-demo/pkg/service/dao/model"
-	"astroshot/gin-demo/pkg/util"
-	"astroshot/gin-demo/pkg/web/model"
+	view "gin-demo/pkg/common/model"
+	"gin-demo/pkg/service"
+	"gin-demo/pkg/service/bo"
+	dao_model "gin-demo/pkg/service/dao/model"
+	"gin-demo/pkg/util"
+	"gin-demo/pkg/web/model"
 
 	"net/http"
 	"strconv"

@@ -6,8 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	view "astroshot/gin-demo/pkg/common/model"
-	"astroshot/gin-demo/pkg/util"
+	view "gin-demo/pkg/common/model"
+	"gin-demo/pkg/util"
 )
 
 // Recover recovers server from panic

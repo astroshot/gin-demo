@@ -1,9 +1,9 @@
 package service
 
 import (
-	"astroshot/gin-demo/pkg/service/bo"
-	"astroshot/gin-demo/pkg/service/dao"
-	"astroshot/gin-demo/pkg/service/dao/model"
+	"gin-demo/pkg/service/bo"
+	"gin-demo/pkg/service/dao"
+	"gin-demo/pkg/service/dao/model"
 )
 
 type UserService interface {

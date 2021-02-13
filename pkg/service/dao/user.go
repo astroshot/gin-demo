@@ -3,8 +3,8 @@ package dao
 import (
 	// "fmt"
 
-	"astroshot/gin-demo/pkg/service/bo"
-	"astroshot/gin-demo/pkg/service/dao/model"
+	"gin-demo/pkg/service/bo"
+	"gin-demo/pkg/service/dao/model"
 )
 
 // UserDAO defines funcs to interfact with table `user`

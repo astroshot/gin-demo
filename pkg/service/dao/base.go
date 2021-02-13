@@ -6,7 +6,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 
-	"astroshot/gin-demo/pkg/config"
+	"gin-demo/pkg/config"
 )
 
 var (
