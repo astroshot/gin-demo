@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"astroshot/gin-demo/pkg/config"
+	"gin-demo/pkg/config"
 
 	"fmt"
 

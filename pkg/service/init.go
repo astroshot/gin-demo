@@ -1,7 +1,7 @@
 package service
 
 import (
-	"astroshot/gin-demo/pkg/service/dao"
+	"gin-demo/pkg/service/dao"
 )
 
 var (
