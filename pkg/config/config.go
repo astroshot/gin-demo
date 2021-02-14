@@ -23,6 +23,7 @@ type Server struct {
 	Path    *string `toml:"context-path"`
 	Port    *string `toml:"port"`
 	LogPath *string `toml:"log-path"`
+	Mode    *string `toml:"gin-mode"`
 }
 
 type Config struct {

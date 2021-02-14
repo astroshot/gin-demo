@@ -2,6 +2,7 @@ package controller
 
 import (
 	view "gin-demo/pkg/common/model"
+	"gin-demo/pkg/config"
 	"gin-demo/pkg/service"
 	"gin-demo/pkg/service/bo"
 	dao_model "gin-demo/pkg/service/dao/model"
@@ -13,6 +14,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 )
+
+// Logger defines log in controller
+var Logger = config.GetLogger()
 
 // ListUsers returns list of users
 func ListUsers(c *gin.Context) {
@@ -95,6 +99,7 @@ func UpdateUser(c *gin.Context) {
 func GetUserByID(c *gin.Context) {
 	var res *view.JSONResponse
 	userID := c.Param("token")
+	Logger.Infof("Request By id: %s", userID)
 	id, err := strconv.ParseInt(userID, 10, 64)
 	if err != nil {
 		res = view.Fail(-1, util.FailInfo, nil)

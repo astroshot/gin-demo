@@ -20,6 +20,8 @@ func init() {
 	Router.Use(middleware.GetLogger())
 	// Router.Use(gin.Recovery())
 	Router.Use(middleware.Recover())
+	Router.Use(middleware.TraceMiddleware())
+	Router.Use(middleware.NoMethodMiddleWare())
 }
 
 // MapURI maps URI to funcs
@@ -38,5 +40,7 @@ func ConfigLog(conf *config.Config) {
 	// logfileName := fmt.Sprintf("%s/gin-demo.log", *conf.Server.LogPath)
 	logfile, _ := os.OpenFile("gin-demo.log", os.O_APPEND|os.O_WRONLY, os.ModeAppend)
 	// logfile, _ := os.Create("gin-demo.log")
-	gin.DefaultWriter = io.MultiWriter(logfile, os.Stdout)
+	// gin.DefaultWriter = io.MultiWriter(logfile, os.Stdout)
+	gin.DefaultWriter = io.MultiWriter(logfile)
+	gin.SetMode(*conf.Server.Mode)
 }

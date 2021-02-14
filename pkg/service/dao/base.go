@@ -1,6 +1,7 @@
 package dao
 
 import (
+	// "log"
 	"sync"
 
 	"github.com/jinzhu/gorm"
@@ -30,6 +31,13 @@ func initDB() {
 	// Disable table name's pluralization
 	db.SingularTable(*conf.Db.SingularTable)
 	db.LogMode(*conf.Db.DebugMode)
+	dbLogger := &GormLogger{}
+
+	db.SetLogger(dbLogger)
+	// Formatter := new(dbLogger.TextFormatter)
+	// log.SetFormatter(Formatter)
+	// Formatter.FullTimestamp = true
+	// db.SetLogger(gorm.Logger{revel.TRACE})
 	db.DB().SetMaxIdleConns(*conf.Db.MaxIdleConns)
 	db.DB().SetMaxOpenConns(*conf.Db.MaxOpenConns)
 }

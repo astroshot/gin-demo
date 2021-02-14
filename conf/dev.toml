@@ -10,3 +10,5 @@ max-open-conns = 10
 context-path = "gin-demo"
 port = "8004"
 log-path = "logs"
+# debug, release, test
+gin-mode = "debug"

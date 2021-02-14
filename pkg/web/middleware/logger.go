@@ -10,6 +10,7 @@ import (
 	"github.com/sirupsen/logrus"
 
 	"gin-demo/pkg/config"
+	"gin-demo/pkg/util"
 )
 
 type bodyLogWriter struct {
@@ -50,18 +51,28 @@ func GetLogger() gin.HandlerFunc {
 		clientIP := c.ClientIP()
 		method := c.Request.Method
 		statusCode := c.Writer.Status()
+		var traceIDStr string
+		if traceID, exist := c.Get(util.TraceIDKey); !exist {
+			traceIDStr = ""
+		} else {
+			traceIDStr = fmt.Sprintf("%v", traceID)
+		}
 
 		logger.WithFields(logrus.Fields{
-			"proto":         c.Request.Proto,
-			"host":          c.Request.Host,
-			"status":        statusCode,
-			"method":        method,
-			"requestHeader": c.Request.Header,
-			"requestBody":   dataStr,
-			"URI":           c.Request.URL.Path,
-			"responseBody":  blw.body.String(),
-			"clientIP":      clientIP,
-			"cost":          latencyStr,
+			"proto":                c.Request.Proto,
+			"host":                 c.Request.Host,
+			"status":               statusCode,
+			"method":               method,
+			"requestContentLength": c.Request.ContentLength,
+			"requestHeader":        c.Request.Header,
+			"trailer":              c.Request.Trailer,
+			"requestBody":          dataStr,
+			"URI":                  c.Request.URL.Path,
+			"responseBody":         blw.body.String(),
+			"clientIP":             clientIP,
+			"remoteAddr":           c.Request.RemoteAddr,
+			"cost":                 latencyStr,
+			"traceID":              traceIDStr,
 		}).Infof("")
 	}
 }

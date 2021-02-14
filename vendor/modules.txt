@@ -35,6 +35,8 @@ github.com/jinzhu/inflection
 ## explicit
 # github.com/json-iterator/go v1.1.9
 github.com/json-iterator/go
+# github.com/kr/pretty v0.1.0
+## explicit
 # github.com/leodido/go-urn v1.2.0
 github.com/leodido/go-urn
 # github.com/lestrrat/go-envload v0.0.0-20180220120943-6ed08b54a570
@@ -57,6 +59,9 @@ github.com/pkg/errors
 # github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5
 ## explicit
 github.com/rifflock/lfshook
+# github.com/satori/go.uuid v1.2.0
+## explicit
+github.com/satori/go.uuid
 # github.com/sirupsen/logrus v1.7.0
 ## explicit
 github.com/sirupsen/logrus
@@ -64,13 +69,13 @@ github.com/sirupsen/logrus
 ## explicit
 # github.com/ugorji/go/codec v1.1.7
 github.com/ugorji/go/codec
-# go.uber.org/zap v1.16.0
-## explicit
 # golang.org/x/net v0.0.0-20210119194325-5f4716e94777
 ## explicit
 # golang.org/x/sys v0.0.0-20201119102817-f84b799fce68
 golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/unix
 golang.org/x/sys/windows
+# gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127
+## explicit
 # gopkg.in/yaml.v2 v2.2.8
 gopkg.in/yaml.v2
