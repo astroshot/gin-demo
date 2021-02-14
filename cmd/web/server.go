@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 
@@ -17,8 +18,10 @@ func main() {
 	fmt.Println("Using env:", *env)
 
 	conf := config.GetConfig(env)
+	confStr, _ := json.Marshal(conf)
+	fmt.Println(string(confStr))
 	service.InitService()
-	web.MapURI(conf)
 	web.ConfigLog(conf)
+	web.MapURI(conf)
 	web.Router.Run(":" + *conf.Server.Port)
 }

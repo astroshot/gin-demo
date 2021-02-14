@@ -1,7 +1,7 @@
 package web
 
 import (
-	// "fmt"
+	"fmt"
 	"io"
 	"os"
 
@@ -18,7 +18,6 @@ var Router *gin.Engine
 func init() {
 	Router = gin.Default()
 	Router.Use(middleware.GetLogger())
-	// Router.Use(gin.Recovery())
 	Router.Use(middleware.Recover())
 	Router.Use(middleware.TraceMiddleware())
 	Router.Use(middleware.NoMethodMiddleWare())
@@ -42,5 +41,6 @@ func ConfigLog(conf *config.Config) {
 	// logfile, _ := os.Create("gin-demo.log")
 	// gin.DefaultWriter = io.MultiWriter(logfile, os.Stdout)
 	gin.DefaultWriter = io.MultiWriter(logfile)
+	fmt.Println("Runing mode: ", *conf.Server.Mode)
 	gin.SetMode(*conf.Server.Mode)
 }

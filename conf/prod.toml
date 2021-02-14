@@ -1,6 +1,6 @@
 [database]
 name = "mysql"
-url = "root:@(localhost:3306)/test?charset=utf8&parseTime=true"
+url = "boot_demo_rw:5c9C27omdA!d%^8v@(localhost:3306)/boot-demo?charset=utf8&parseTime=true"
 singular-table = true
 debug-mode = true
 max-idle-conns = 10
