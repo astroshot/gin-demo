@@ -45,7 +45,7 @@ func GetLogger() gin.HandlerFunc {
 		c.Next()
 		end := time.Now()
 		latency := end.Sub(start)
-		latencyStr := fmt.Sprintf("%fms", float64(latency)/float64(time.Millisecond))
+		latencyStr := fmt.Sprintf("%.3fms", float64(latency)/float64(time.Millisecond))
 
 		// path := c.Request.URL.Path
 		clientIP := c.ClientIP()

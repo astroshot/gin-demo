@@ -10,6 +10,15 @@ import (
 
 var log = config.GetLogger()
 
+// TODO: implement this interface
+// type Interface interface {
+// 	LogMode(LogLevel) Interface
+// 	Info(context.Context, string, ...interface{})
+// 	Warn(context.Context, string, ...interface{})
+// 	Error(context.Context, string, ...interface{})
+// 	Trace(ctx context.Context, begin time.Time, fc func() (string, int64), err error)
+// }
+
 // GormLogger struct
 type GormLogger struct{}
 
