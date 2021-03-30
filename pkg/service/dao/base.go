@@ -5,6 +5,7 @@ import (
 	"sync"
 
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
 	"gin-demo/pkg/config"
@@ -23,7 +24,8 @@ func initDB() {
 	var err error
 
 	conf := config.GetConfig(config.GetEnv())
-	db, err = gorm.Open(*conf.Db.Name, *conf.Db.URL)
+
+	db, err = gorm.Open(mysql.Open(*conf.Db.URL), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}

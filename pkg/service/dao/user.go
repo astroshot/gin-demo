@@ -58,8 +58,9 @@ func (dao *UserDAOImpl) Update(user *model.User) bool {
 // GetByCondition returns Users
 func (dao *UserDAOImpl) GetByCondition(condition *bo.UserQueryBO) *bo.Pager {
 	var users []model.User
-	var totalCount int
-	var pageCount int
+	var totalCount int64
+	var totalCountInt int
+	var pageCountInt int
 	query := db
 
 	if condition.Name != nil {
@@ -76,13 +77,14 @@ func (dao *UserDAOImpl) GetByCondition(condition *bo.UserQueryBO) *bo.Pager {
 	query = query.Offset(offset)
 	query.Find(&users)
 
-	pageCount = (totalCount + *condition.PageSize - 1) / *condition.PageSize
+	totalCountInt = int(totalCount)
+	pageCountInt = (totalCountInt + *condition.PageSize - 1) / *condition.PageSize
 
 	pager := &bo.Pager{
 		PageNo:     condition.PageNo,
 		PageSize:   condition.PageSize,
-		PageCount:  &pageCount,
-		TotalCount: &totalCount,
+		PageCount:  &pageCountInt,
+		TotalCount: &totalCountInt,
 		Data:       users,
 	}
 
