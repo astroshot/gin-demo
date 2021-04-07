@@ -7,7 +7,7 @@ import (
 	"gin-demo/pkg/service/bo"
 	dao_model "gin-demo/pkg/service/dao/model"
 	"gin-demo/pkg/util"
-	"gin-demo/pkg/web/model"
+	"gin-demo/pkg/web/model/vo"
 
 	"net/http"
 	"strconv"
@@ -39,7 +39,7 @@ func ListUsers(c *gin.Context) {
 
 // AddUser creates model User in db
 func AddUser(c *gin.Context) {
-	var userVO model.UserVO
+	var userVO vo.UserVO
 	var res *view.JSONResponse
 	if err := c.ShouldBindJSON(&userVO); err != nil {
 		res = view.Fail(-1, util.FailInfo, err.Error())

@@ -18,6 +18,7 @@ type Database struct {
 	MaxOpenConns  *int    `toml:"max-open-conns"`
 }
 
+// Server defines config in toml
 type Server struct {
 	// TODO: pass context from config files
 	Path    *string `toml:"context-path"`
@@ -26,6 +27,7 @@ type Server struct {
 	Mode    *string `toml:"gin-mode"`
 }
 
+// Config defines all configuration of web service
 type Config struct {
 	Db     *Database `toml:"database"`
 	Server *Server   `toml:"server"`
