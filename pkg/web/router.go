@@ -21,8 +21,8 @@ func init() {
 	Router.Use(middleware.Recover())
 	Router.Use(middleware.TraceMiddleware())
 
-	Router.NoMethod(middleware.NoMethodMiddleWare())
-	Router.NoRoute(middleware.NoMethodMiddleWare())
+	Router.NoMethod(middleware.MethodNotSupportedMiddleware())
+	Router.NoRoute(middleware.URINotFoundMiddleware())
 }
 
 // MapURI maps URI to funcs

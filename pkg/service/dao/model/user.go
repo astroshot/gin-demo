@@ -8,3 +8,8 @@ type User struct {
 	Status      *int    `json:"status"`
 	BaseModel
 }
+
+// TableName Defines name in database
+func (u User) TableName() string {
+	return "user"
+}

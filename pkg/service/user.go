@@ -10,9 +10,9 @@ import (
 
 type UserService interface {
 	Add(ctx context.Context, user *model.User) bool
-	Update(user *model.User) bool
-	GetByID(id *int64) *model.User
-	GetByCondition(condition *bo.UserQueryBO) *bo.Pager
+	Update(ctx context.Context, user *model.User) bool
+	GetByID(ctx context.Context, id *int64) *model.User
+	GetByCondition(ctx context.Context, condition *bo.UserQueryBO) *bo.Pager
 }
 
 type UserServiceImpl struct {
@@ -23,14 +23,14 @@ func (service *UserServiceImpl) Add(ctx context.Context, user *model.User) bool 
 	return service.UserDAO.Add(ctx, user)
 }
 
-func (service *UserServiceImpl) GetByID(id *int64) *model.User {
-	return service.UserDAO.GetByID(id)
+func (service *UserServiceImpl) GetByID(ctx context.Context, id *int64) *model.User {
+	return service.UserDAO.GetByID(ctx, id)
 }
 
-func (service *UserServiceImpl) GetByCondition(condition *bo.UserQueryBO) *bo.Pager {
-	return service.UserDAO.GetByCondition(condition)
+func (service *UserServiceImpl) GetByCondition(ctx context.Context, condition *bo.UserQueryBO) *bo.Pager {
+	return service.UserDAO.GetByCondition(ctx, condition)
 }
 
-func (service *UserServiceImpl) Update(user *model.User) bool {
-	return service.UserDAO.Update(user)
+func (service *UserServiceImpl) Update(ctx context.Context, user *model.User) bool {
+	return service.UserDAO.Update(ctx, user)
 }

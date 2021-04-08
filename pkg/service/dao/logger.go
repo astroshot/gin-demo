@@ -3,7 +3,6 @@ package dao
 import (
 	"context"
 	"fmt"
-	_ "fmt"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -11,7 +10,8 @@ import (
 	"gorm.io/gorm/utils"
 
 	"gin-demo/pkg/config"
-	"gin-demo/pkg/util"
+	"gin-demo/pkg/helper"
+	_ "gin-demo/pkg/util"
 )
 
 var log = config.GetLogger()
@@ -26,7 +26,7 @@ var (
 	SlowThreshold = 300 * time.Millisecond
 )
 
-// TODO: implement this interface
+// Implement gorm Logger interface
 // type Interface interface {
 // 	LogMode(LogLevel) Interface
 // 	Info(context.Context, string, ...interface{})
@@ -49,26 +49,26 @@ func GetGormLogger() *GormLogger {
 
 // Print - Log Formatter
 // v: [sql, invocation func position, sql execution duration, sql content, values in sql, rowsReturned]
-func (l *GormLogger) Print(v ...interface{}) {
-	// fmt.Println("v: ", v)
-	// vStr := fmt.Sprintf("length: %d, vals: %v", len(v), v)
-	// fmt.Println(vStr)
-	switch v[0] {
-	case "sql":
-		l.logger.WithFields(
-			logrus.Fields{
-				"module":       "gorm",
-				"type":         "sql",
-				"rowsReturned": v[5],
-				"src":          v[1],
-				"values":       v[4],
-				"duration":     v[2],
-			},
-		).Info(v[3])
-	case "log":
-		l.logger.WithFields(logrus.Fields{"module": "gorm", "type": "log"}).Print(v[2])
-	}
-}
+// func (l *GormLogger) Print(v ...interface{}) {
+// fmt.Println("v: ", v)
+// vStr := fmt.Sprintf("length: %d, vals: %v", len(v), v)
+// fmt.Println(vStr)
+//	switch v[0] {
+//	case "sql":
+//		l.logger.WithFields(
+//			logrus.Fields{
+//				"module":       "gorm",
+//				"type":         "sql",
+//				"rowsReturned": v[5],
+//				"src":          v[1],
+//				"values":       v[4],
+//				"duration":     v[2],
+//			},
+//		).Info(v[3])
+//	case "log":
+//		l.logger.WithFields(logrus.Fields{"module": "gorm", "type": "log"}).Print(v[2])
+//	}
+//}
 
 // LogMode implements gorm Logger Interface
 func (l *GormLogger) LogMode(level glogger.LogLevel) glogger.Interface {
@@ -89,13 +89,7 @@ func (l *GormLogger) LogMode(level glogger.LogLevel) glogger.Interface {
 }
 
 func getTraceID(ctx context.Context) string {
-	var traceVal = ctx.Value(util.TraceIDKey)
-	traceID, ok := traceVal.(string)
-	if !ok {
-		return ""
-	}
-
-	return traceID
+	return helper.GetTraceIDFrom(ctx)
 }
 
 // logger.WithFields(logrus.Fields{

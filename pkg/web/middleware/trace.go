@@ -13,7 +13,7 @@ func TraceMiddleware() gin.HandlerFunc {
 		// 优先从请求头中获取请求ID，如果没有则使用UUID
 		traceID := c.GetHeader("X-Request-Id")
 		if traceID == "" {
-			traceID = helper.GetTraceID()
+			traceID = helper.MakeTraceID()
 		}
 		c.Set(util.TraceIDKey, traceID)
 		c.Next()
