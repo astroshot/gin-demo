@@ -8,12 +8,12 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-func GetUUID() string {
+func MakeUUID() string {
 	uid := uuid.NewV4()
 	return uid.String()
 }
 
-func GetTraceID() string {
-	var uuid = GetUUID()
+func MakeTraceID() string {
+	var uuid = MakeUUID()
 	return strings.Replace(uuid, "-", "", -1)
 }

@@ -1,4 +1,4 @@
-package model
+package vo
 
 type UserVO struct {
 	Name        *string `json:"name"`

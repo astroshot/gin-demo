@@ -1,6 +1,7 @@
 package config
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"time"
@@ -9,6 +10,7 @@ import (
 	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
 
+	"gin-demo/pkg/helper"
 	"gin-demo/pkg/util"
 )
 
@@ -46,7 +48,13 @@ func init() {
 	logger.AddHook(lfHook)
 }
 
-// GetLogger returns logger object to server
+// GetLogger returns logger object
 func GetLogger() *logrus.Logger {
 	return logger
+}
+
+// GetLoggerEntry returns logger instance with custom traceID in log field, Recommended for controller and service
+func GetLoggerEntry(ctx context.Context) *logrus.Entry {
+	traceID := helper.GetTraceIDFrom(ctx)
+	return logger.WithContext(ctx).WithField("TraceID", traceID)
 }

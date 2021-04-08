@@ -2,17 +2,19 @@ package dao
 
 import (
 	// "fmt"
+	"context"
 
+	"gin-demo/pkg/config"
 	"gin-demo/pkg/service/bo"
 	"gin-demo/pkg/service/dao/model"
 )
 
 // UserDAO defines funcs to interfact with table `user`
 type UserDAO interface {
-	GetByID(id *int64) *model.User
-	Add(user *model.User) bool
-	Update(user *model.User) bool
-	GetByCondition(condition *bo.UserQueryBO) *bo.Pager
+	GetByID(ctx context.Context, id *int64) *model.User
+	Add(ctx context.Context, user *model.User) bool
+	Update(ctx context.Context, user *model.User) bool
+	GetByCondition(ctx context.Context, condition *bo.UserQueryBO) *bo.Pager
 }
 
 // UserDAOImpl implements interface UserDAO
@@ -20,9 +22,11 @@ type UserDAOImpl struct {
 }
 
 // GetByID returns User model by id
-func (dao *UserDAOImpl) GetByID(id *int64) *model.User {
+func (dao *UserDAOImpl) GetByID(ctx context.Context, id *int64) *model.User {
 	user := model.User{}
-	db.First(&user, *id)
+	db.WithContext(ctx).First(&user, *id)
+	logger := config.GetLoggerEntry(ctx)
+	logger.Infof("Get User Result: %+v", user)
 	// or get a structure fulfilled with nil
 	if user.ID == nil {
 		return nil
@@ -32,35 +36,36 @@ func (dao *UserDAOImpl) GetByID(id *int64) *model.User {
 }
 
 // Add create User
-func (dao *UserDAOImpl) Add(user *model.User) bool {
+func (dao *UserDAOImpl) Add(ctx context.Context, user *model.User) bool {
 	if user == nil {
 		return false
 	}
 
-	if err := db.Create(&user).Error; err != nil {
+	if err := db.WithContext(ctx).Create(&user).Error; err != nil {
 		panic(err)
 	}
 	return true
 }
 
 // Update User
-func (dao *UserDAOImpl) Update(user *model.User) bool {
+func (dao *UserDAOImpl) Update(ctx context.Context, user *model.User) bool {
 	if user == nil {
 		return false
 	}
 
-	if err := db.Model(&user).Updates(*user).Error; err != nil {
+	if err := db.WithContext(ctx).Model(&user).Updates(*user).Error; err != nil {
 		panic(err)
 	}
 	return true
 }
 
 // GetByCondition returns Users
-func (dao *UserDAOImpl) GetByCondition(condition *bo.UserQueryBO) *bo.Pager {
+func (dao *UserDAOImpl) GetByCondition(ctx context.Context, condition *bo.UserQueryBO) *bo.Pager {
 	var users []model.User
-	var totalCount int
-	var pageCount int
-	query := db
+	var totalCount int64
+	var totalCountInt int
+	var pageCountInt int
+	query := db.WithContext(ctx)
 
 	if condition.Name != nil {
 		query = query.Where("name LIKE ?", "%"+*condition.Name+"%")
@@ -76,13 +81,14 @@ func (dao *UserDAOImpl) GetByCondition(condition *bo.UserQueryBO) *bo.Pager {
 	query = query.Offset(offset)
 	query.Find(&users)
 
-	pageCount = (totalCount + *condition.PageSize - 1) / *condition.PageSize
+	totalCountInt = int(totalCount)
+	pageCountInt = (totalCountInt + *condition.PageSize - 1) / *condition.PageSize
 
 	pager := &bo.Pager{
 		PageNo:     condition.PageNo,
 		PageSize:   condition.PageSize,
-		PageCount:  &pageCount,
-		TotalCount: &totalCount,
+		PageCount:  &pageCountInt,
+		TotalCount: &totalCountInt,
 		Data:       users,
 	}
 

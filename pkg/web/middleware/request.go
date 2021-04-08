@@ -9,9 +9,17 @@ import (
 	"gin-demo/pkg/util"
 )
 
-func NoMethodMiddleWare() gin.HandlerFunc {
+func MethodNotSupportedMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		res := view.Fail(-1, util.MethodNotFound, nil)
+		res := view.FailWithDefaultCode(util.MethodNotSupported, nil)
+		c.JSON(http.StatusOK, res)
+		c.Next()
+	}
+}
+
+func URINotFoundMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		res := view.FailWithDefaultCode(util.URINotFound, nil)
 		c.JSON(http.StatusOK, res)
 		c.Next()
 	}
