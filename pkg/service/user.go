@@ -1,13 +1,15 @@
 package service
 
 import (
+	"context"
+
 	"gin-demo/pkg/service/bo"
 	"gin-demo/pkg/service/dao"
 	"gin-demo/pkg/service/dao/model"
 )
 
 type UserService interface {
-	Add(user *model.User) bool
+	Add(ctx context.Context, user *model.User) bool
 	Update(user *model.User) bool
 	GetByID(id *int64) *model.User
 	GetByCondition(condition *bo.UserQueryBO) *bo.Pager
@@ -17,8 +19,8 @@ type UserServiceImpl struct {
 	UserDAO dao.UserDAO
 }
 
-func (service *UserServiceImpl) Add(user *model.User) bool {
-	return service.UserDAO.Add(user)
+func (service *UserServiceImpl) Add(ctx context.Context, user *model.User) bool {
+	return service.UserDAO.Add(ctx, user)
 }
 
 func (service *UserServiceImpl) GetByID(id *int64) *model.User {

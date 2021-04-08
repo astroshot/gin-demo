@@ -2,6 +2,7 @@ package dao
 
 import (
 	// "fmt"
+	"context"
 
 	"gin-demo/pkg/service/bo"
 	"gin-demo/pkg/service/dao/model"
@@ -10,7 +11,7 @@ import (
 // UserDAO defines funcs to interfact with table `user`
 type UserDAO interface {
 	GetByID(id *int64) *model.User
-	Add(user *model.User) bool
+	Add(ctx context.Context, user *model.User) bool
 	Update(user *model.User) bool
 	GetByCondition(condition *bo.UserQueryBO) *bo.Pager
 }
@@ -32,12 +33,12 @@ func (dao *UserDAOImpl) GetByID(id *int64) *model.User {
 }
 
 // Add create User
-func (dao *UserDAOImpl) Add(user *model.User) bool {
+func (dao *UserDAOImpl) Add(ctx context.Context, user *model.User) bool {
 	if user == nil {
 		return false
 	}
 
-	if err := db.Create(&user).Error; err != nil {
+	if err := db.WithContext(ctx).Table("user").Create(&user).Error; err != nil {
 		panic(err)
 	}
 	return true

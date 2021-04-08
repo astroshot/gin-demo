@@ -55,14 +55,14 @@ func AddUser(c *gin.Context) {
 		Description: userVO.Description,
 		Status:      &status,
 	}
-	service.UserServiceInstance.Add(user)
+	service.UserServiceInstance.Add(c, user)
 	// Logger.Infof("Log: %s", user.Name)
 	res = view.Success(0, util.SuccessInfo, true)
 	c.JSON(http.StatusOK, res)
 }
 
 func UpdateUser(c *gin.Context) {
-	var userVO model.UserVO
+	var userVO vo.UserVO
 	var res *view.JSONResponse
 
 	userID := c.Param("token")

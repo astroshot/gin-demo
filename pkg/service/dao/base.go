@@ -33,7 +33,8 @@ func initDB() {
 	// Disable table name's pluralization
 	// db.SingularTable(*conf.Db.SingularTable)
 	// db.LogMode(*conf.Db.DebugMode)
-	dbLogger := &GormLogger{}
+	dbLogger := GetGormLogger()
+	db.Logger = dbLogger
 
 	// db.SetLogger(dbLogger)
 	// Formatter := new(dbLogger.TextFormatter)
