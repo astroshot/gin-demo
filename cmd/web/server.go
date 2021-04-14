@@ -10,9 +10,26 @@ import (
 	"gin-demo/pkg/web"
 )
 
+var (
+	Version   string
+	GitCommit string
+	GoVersion string
+	BuildTime string
+)
+
+func fullVersion() string {
+	return fmt.Sprintf("Version: %6s, Git commit: %6s, Go version: %6s, Build time: %6s", Version, GitCommit, GoVersion, BuildTime)
+}
+
 func main() {
 	env := flag.String("env", "dev", "deploy environment")
+	showVersion := flag.Bool("v", false, "Current Version")
 	flag.Parse()
+
+	if *showVersion {
+		fmt.Println(fullVersion())
+		return
+	}
 
 	fmt.Println(env)
 	fmt.Println("Using env:", *env)
