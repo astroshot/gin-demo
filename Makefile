@@ -4,11 +4,11 @@ BUILD_TARGET := $(HOMEDIR)/bin/gen-api
 BUILD_SOURCE := $(HOMEDIR)/cmd/api/main.go
 BUILD_INFO := "-X 'main.Version=$(VERSION)' \
 		-X 'main.BuildTime=$(shell date "+%Y-%m-%d %H:%M:%S")' \
-		-X 'main.GoVersion=$(shell go version | grep -Eo "go\d.* " | sed "s/ //")' \
+		-X 'main.GoVersion=$(shell go version | grep -Eo "go[0-9]+.* " | sed "s/ //")' \
 		-X 'main.GitCommit=$(shell git rev-parse --short HEAD || echo unsupported)'"
 
 build:
-	go build -ldflags $(BUILD_INFO) -o bin/gin_api cmd/web/server.go
+	go build -ldflags $(BUILD_INFO) -v -o bin/gin_api cmd/web/server.go
 
 clean:
 	-rm bin/*
