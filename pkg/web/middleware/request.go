@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	view "gin-demo/pkg/common/model"
+	view "gin-demo/pkg/entity"
 	"gin-demo/pkg/util"
 )
 

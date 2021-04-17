@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	view "gin-demo/pkg/common/model"
+	entity "gin-demo/pkg/entity"
 	"gin-demo/pkg/util"
 )
 
@@ -15,7 +15,7 @@ func Recover() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		defer func() {
 			if r := recover(); r != nil {
-				res := view.Fail(-1, util.FailInfo, r)
+				res := entity.Fail(-1, util.FailInfo, r)
 				c.JSON(http.StatusOK, res)
 			}
 		}()
