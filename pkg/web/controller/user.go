@@ -3,11 +3,11 @@ package controller
 import (
 	view "gin-demo/pkg/common/model"
 	"gin-demo/pkg/config"
+	"gin-demo/pkg/entity/bo"
+	"gin-demo/pkg/entity/model"
+	"gin-demo/pkg/entity/vo"
 	"gin-demo/pkg/service"
-	"gin-demo/pkg/service/bo"
-	dao_model "gin-demo/pkg/service/dao/model"
 	"gin-demo/pkg/util"
-	"gin-demo/pkg/web/model/vo"
 
 	"net/http"
 	"strconv"
@@ -45,7 +45,7 @@ func AddUser(c *gin.Context) {
 	}
 
 	status := util.StatusNormal
-	user := &dao_model.User{
+	user := &model.User{
 		Name:        userVO.Name,
 		Email:       userVO.Email,
 		Phone:       userVO.Phone,

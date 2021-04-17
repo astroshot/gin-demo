@@ -3,9 +3,9 @@ package service
 import (
 	"context"
 
-	"gin-demo/pkg/service/bo"
+	"gin-demo/pkg/entity/bo"
+	"gin-demo/pkg/entity/model"
 	"gin-demo/pkg/service/dao"
-	"gin-demo/pkg/service/dao/model"
 )
 
 type UserService interface {

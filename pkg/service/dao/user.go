@@ -5,8 +5,8 @@ import (
 	"context"
 
 	"gin-demo/pkg/config"
-	"gin-demo/pkg/service/bo"
-	"gin-demo/pkg/service/dao/model"
+	"gin-demo/pkg/entity/bo"
+	"gin-demo/pkg/entity/model"
 )
 
 // UserDAO defines funcs to interfact with table `user`
