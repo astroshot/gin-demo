@@ -1,5 +1,7 @@
 package model
 
+import "encoding/json"
+
 type User struct {
 	Name        *string `json:"name"`
 	Phone       *string `json:"phone"`
@@ -10,6 +12,15 @@ type User struct {
 }
 
 // TableName Defines name in database
-func (u User) TableName() string {
+func (instance User) TableName() string {
 	return "user"
+}
+
+func (instance User) String() string {
+	bytes, err := json.Marshal(instance)
+	if err != nil {
+		panic(err)
+	}
+
+	return string(bytes)
 }
