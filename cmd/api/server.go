@@ -34,7 +34,7 @@ func main() {
 	fmt.Println(env)
 	fmt.Println("Using env:", *env)
 
-	conf := config.GetConfig(env)
+	conf := config.InitConfig(env)
 	// confStr, _ := json.Marshal(conf)
 	// fmt.Println(string(confStr))
 	service.InitService()

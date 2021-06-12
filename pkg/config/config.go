@@ -54,9 +54,8 @@ func init() {
 	ProjectPath = gopath + "/src/astroshot/gin-demo"
 }
 
-// GetConfig initiates and returns global service configuration
-func GetConfig(env *string) *Config {
-
+// InitConfig initiates and returns global service configuration
+func InitConfig(env *string) *Config {
 	if env == nil {
 		panic("env cannot be nil")
 	}
@@ -75,4 +74,8 @@ func GetConfig(env *string) *Config {
 // GetEnv returns running environment of server specified by command
 func GetEnv() *string {
 	return envFlag
+}
+
+func GetConfInstance() *Config {
+	return confInstance
 }

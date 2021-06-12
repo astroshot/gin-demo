@@ -1,8 +1,8 @@
 # Project Info
 VERSION := "1.0.0"
 HOMEDIR := $(shell pwd)
-BUILD_TARGET := $(HOMEDIR)/bin/gen-api
-BUILD_SOURCE := $(HOMEDIR)/cmd/api/main.go
+BUILD_TARGET := $(HOMEDIR)/bin/gin-api
+BUILD_SOURCE := $(HOMEDIR)/cmd/api/server.go
 BUILD_INFO := "-X 'main.Version=$(VERSION)' \
 		-X 'main.BuildTime=$(shell date "+%Y-%m-%d %H:%M:%S")' \
 		-X 'main.GoVersion=$(shell go version | grep -Eo "go[0-9]+.* " | sed "s/ //")' \

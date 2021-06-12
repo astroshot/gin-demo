@@ -23,7 +23,7 @@ func GetDB() *gorm.DB {
 func initDB() {
 	var err error
 
-	conf := config.GetConfig(config.GetEnv())
+	conf := config.GetConfInstance()
 
 	db, err = gorm.Open(mysql.Open(*conf.Db.URL), &gorm.Config{})
 	if err != nil {
