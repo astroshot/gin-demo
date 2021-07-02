@@ -50,7 +50,8 @@ github.com/lestrrat/go-file-rotatelogs
 # github.com/lestrrat/go-strftime v0.0.0-20180220042222-ba3bf9c1d042
 ## explicit
 github.com/lestrrat/go-strftime
-# github.com/mattn/go-isatty v0.0.12
+# github.com/mattn/go-isatty v0.0.13
+## explicit
 github.com/mattn/go-isatty
 # github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd
 ## explicit
@@ -67,7 +68,7 @@ github.com/rifflock/lfshook
 # github.com/satori/go.uuid v1.2.0
 ## explicit
 github.com/satori/go.uuid
-# github.com/sirupsen/logrus v1.7.0
+# github.com/sirupsen/logrus v1.8.1
 ## explicit
 github.com/sirupsen/logrus
 # github.com/tebeka/strftime v0.1.5
@@ -76,7 +77,7 @@ github.com/sirupsen/logrus
 github.com/ugorji/go/codec
 # golang.org/x/net v0.0.0-20210119194325-5f4716e94777
 ## explicit
-# golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c
+# golang.org/x/sys v0.0.0-20210616094352-59db8d763f22
 ## explicit
 golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/unix
