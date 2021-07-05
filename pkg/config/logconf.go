@@ -4,9 +4,10 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"path"
 	"time"
 
-	"github.com/lestrrat/go-file-rotatelogs"
+	rotatelogs "github.com/lestrrat/go-file-rotatelogs"
 	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
 
@@ -25,11 +26,10 @@ func init() {
 	logger.Out = src
 	logger.SetLevel(logrus.InfoLevel)
 	// logger.SetFormatter(logrus.JSONFormatter)
-
-	logPath := "gin-demo"
+	baseLogPath := path.Join("logs", "gin-demo")
 	logWriter, err := rotatelogs.New(
-		logPath+"-%Y-%m-%d-%H-%M.log",
-		rotatelogs.WithLinkName(fmt.Sprintf("%s.log", logPath)),
+		baseLogPath+"-%Y-%m-%d-%H-%M.log",
+		rotatelogs.WithLinkName(fmt.Sprintf("%s.log", baseLogPath)),
 		rotatelogs.WithMaxAge(7*24*time.Hour),
 		rotatelogs.WithRotationTime(24*time.Hour),
 	)
